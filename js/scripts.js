@@ -23,14 +23,26 @@ document.addEventListener('DOMContentLoaded', function () {
   const greetingParagraph = document.getElementById("greetingParagraph");
   greetingParagraph.textContent = greeting("Joseph");
 
-  const form = document.querySelector("form");
-  form.addEventListener("submit", function (e) {
+  const gameForm = document.getElementById("gameForm");
+  const messageElement = document.getElementById("resultMessage");
+  const resetButton = document.getElementById("reset");
+
+  gameForm.addEventListener("submit", function (e) {
     e.preventDefault();
     const inputNumber = document.getElementById("inputNumber").value;
+    if (inputNumber.trim() === "") {
+      messageElement.textContent = "Please enter a number (1 or 2).";
+      return; // Exit the function early if the input is empty
+    }
     const result = guessMyNumber(inputNumber);
-    const messageElement = document.getElementById("resultMessage");
     messageElement.textContent = result;
   })
+
+  resetButton.addEventListener("click", function () {
+    messageElement.textContent = " ";
+    document.getElementById("inputNumber").value = "";
+  })
 });
+
 
 
